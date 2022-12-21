@@ -103,3 +103,29 @@ class OverScrollBehavior extends ScrollBehavior {
     return child;
   }
 }
+
+class InputText extends StatelessWidget {
+  final String? hintText;
+  final int? maxLines;
+  final int? maxLength;
+
+  const InputText({Key? key, this.hintText, this.maxLines, this.maxLength}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      maxLines: maxLines,
+      maxLength: maxLength,
+      decoration: InputDecoration(
+        hintText: hintText,
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        fillColor: Colors.white,
+        filled: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      ),
+    );
+  }
+}

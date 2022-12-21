@@ -3,6 +3,7 @@ import 'package:app_flutter/common/common_ui.dart';
 import 'package:app_flutter/common/title.dart';
 import 'package:app_flutter/main/comp/habit_list/habit_list_controller.dart';
 import 'package:app_flutter/main/comp/habit_list/ui/habit_card.dart';
+import 'package:app_flutter/model_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
@@ -11,61 +12,63 @@ class HabitListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF1F5FE),
-        body: GetBuilder<HabitListController>(
-          init: HabitListController(),
-          builder: (controller) => Stack(
-            children: [
-              Image(
-                height: 218.dp,
-                image: const AssetImage("images/bg_today.png"),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  const TitleWidget(title: "习惯列表页"),
-                  SizedBox(
-                    height: 162.dp,
-                    width: double.infinity,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 16.dp,
-                          left: 15.dp,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              FlatText.blod(
-                                "06",
-                                fontSize: 67,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 4.dp),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  FlatText.blod(
-                                    "/12",
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                  SizedBox(height: 1.dp),
-                                  FlatText.blod(
-                                    "星期一",
-                                    fontSize: 13,
-                                    color: Colors.black,
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
+    return Container(
+      color: const Color(0xFFF1F5FE),
+      child: GetBuilder<HabitListController>(
+        init: HabitListController(),
+        builder: (controller) => Stack(
+          children: [
+            const Image(
+              image: AssetImage("images/bg_today.png"),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const TitleWidget(title: "习惯列表页"),
+                SizedBox(
+                  height: 152.dp,
+                  width: double.infinity,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 16.dp,
+                        left: 15.dp,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            FlatText.blod(
+                              "06",
+                              fontSize: 67,
+                              color: Colors.black,
+                            ),
+                            SizedBox(width: 4.dp),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                FlatText.blod(
+                                  "/12",
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(height: 1.dp),
+                                FlatText.blod(
+                                  "星期一",
+                                  fontSize: 13,
+                                  color: Colors.black,
+                                )
+                              ],
+                            )
+                          ],
                         ),
-                        Positioned(
-                          bottom: 28.dp,
-                          right: 35.dp,
+                      ),
+                      Positioned(
+                        bottom: 28.dp,
+                        right: 35.dp,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(addHabitRoute);
+                          },
                           child: Container(
                             width: 54.dp,
                             height: 54.dp,
@@ -81,17 +84,17 @@ class HabitListPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
-                  Expanded(
-                    child: buildBody(controller),
-                  )
-                ],
-              )
-            ],
-          ),
+                ),
+                Expanded(
+                  child: buildBody(controller),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );
@@ -100,6 +103,7 @@ class HabitListPage extends StatelessWidget {
   Widget buildBody(HabitListController controller) {
     if (controller.habitList.isEmpty) {
       return Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: EdgeInsets.only(left: 63.dp),
@@ -118,23 +122,21 @@ class HabitListPage extends StatelessWidget {
         ],
       );
     }
-    return Padding(
-      padding: EdgeInsets.only(top: 12.dp),
-      child: ScrollConfiguration(
-        behavior: OverScrollBehavior(),
-        child: ListView.builder(
-          itemBuilder: (_, index) => Container(
-            key: UniqueKey(),
-            padding: EdgeInsets.fromLTRB(
-              15.dp,
-              index == 0 ? 19.dp : 15.dp,
-              15.dp,
-              0,
-            ),
-            child: createHabitCard(controller, controller.habitList[index]),
+    return ScrollConfiguration(
+      behavior: OverScrollBehavior(),
+      child: ListView.builder(
+        padding: const EdgeInsets.only(top: 0),
+        itemBuilder: (_, index) => Container(
+          key: UniqueKey(),
+          padding: EdgeInsets.fromLTRB(
+            15.dp,
+            index == 0 ? 19.dp : 15.dp,
+            15.dp,
+            0,
           ),
-          itemCount: controller.habitList.length,
+          child: createHabitCard(controller, controller.habitList[index]),
         ),
+        itemCount: controller.habitList.length,
       ),
     );
   }

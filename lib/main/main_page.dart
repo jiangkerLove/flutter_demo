@@ -1,4 +1,3 @@
-import 'package:app_flutter/common/colors.dart';
 import 'package:app_flutter/common/common_ui.dart';
 import 'package:app_flutter/main/comp/habit_list/habit_list_page.dart';
 import 'package:app_flutter/main/main_controller.dart';
@@ -20,6 +19,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: GetBuilder<MainController>(
         init: MainController(),
         builder: (controller) => Scaffold(

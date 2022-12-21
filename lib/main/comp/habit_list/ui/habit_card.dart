@@ -9,7 +9,7 @@ Widget createHabitCard(HabitListController controller, HabitListData data) {
     width: double.infinity,
     padding: EdgeInsets.only(left: 15.dp, top: 15.dp),
     decoration: BoxDecoration(
-      color: Colors.amberAccent,
+      color: Colors.white,
       borderRadius: BorderRadius.circular(12.dp),
     ),
     child: Column(
