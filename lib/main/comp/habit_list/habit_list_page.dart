@@ -13,7 +13,7 @@ class HabitListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFF1F5FE),
+      color: bgColor,
       child: GetBuilder<HabitListController>(
         init: HabitListController(),
         builder: (controller) => Stack(
@@ -134,7 +134,7 @@ class HabitListPage extends StatelessWidget {
             15.dp,
             0,
           ),
-          child: createHabitCard(controller, controller.habitList[index]),
+          child: HabitCard(controller: controller, data: controller.habitList[index]),
         ),
         itemCount: controller.habitList.length,
       ),

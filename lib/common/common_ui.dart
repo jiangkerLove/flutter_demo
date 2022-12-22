@@ -117,6 +117,8 @@ class InputText extends StatelessWidget {
       maxLines: maxLines,
       maxLength: maxLength,
       decoration: InputDecoration(
+        // 字数提示
+        counterText: "",
         hintText: hintText,
         border: OutlineInputBorder(
           borderSide: BorderSide.none,

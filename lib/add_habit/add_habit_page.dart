@@ -12,7 +12,7 @@ class AddHabitPage extends StatelessWidget {
       top: false,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xFFF1F5FE),
+        backgroundColor: bgColor,
         body: Column(
           children: [
             const TitleWidget(title: "添加习惯"),

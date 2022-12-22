@@ -2,12 +2,13 @@ import 'dart:ui';
 
 import 'package:app_flutter/common/common_ui.dart';
 import 'package:app_flutter/main/main_page.dart';
+import 'package:app_flutter/route_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'model_routes.dart';
 
-typedef RouteWidgetBuilder = Widget Function(BuildContext context, Map<String, dynamic> params);
+typedef RouteWidgetBuilder = Widget Function(BuildContext context, Object? params);
 
 void main() {
   baseScale = window.physicalSize.width / window.devicePixelRatio / 375;
@@ -15,12 +16,7 @@ void main() {
   // 路由转换，获取统一获取传值
   var newMap = routeMap.map((key, value) {
     return MapEntry(key, (context) {
-      Map<String, dynamic> params;
-      try {
-        params = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      } catch (e) {
-        params = {};
-      }
+      Object? params = ModalRoute.of(context)?.settings.arguments;
       return value(context, params);
     });
   });
@@ -32,7 +28,8 @@ void main() {
   ));
 
   runApp(
-    MaterialApp(
+    // 替换默认Route
+    MyMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -43,3 +40,5 @@ void main() {
     ),
   );
 }
+
+
