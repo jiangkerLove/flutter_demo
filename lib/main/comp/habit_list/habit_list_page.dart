@@ -38,7 +38,7 @@ class HabitListPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             FlatText.blod(
-                              "06",
+                              "${controller.dateTime.day}",
                               fontSize: 67,
                               color: Colors.black,
                             ),
@@ -47,13 +47,13 @@ class HabitListPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 FlatText.blod(
-                                  "/12",
+                                  "/${controller.dateTime.month}",
                                   fontSize: 16,
                                   color: Colors.black,
                                 ),
                                 SizedBox(height: 1.dp),
                                 FlatText.blod(
-                                  "星期一",
+                                  weekday[controller.dateTime.weekday],
                                   fontSize: 13,
                                   color: Colors.black,
                                 )
