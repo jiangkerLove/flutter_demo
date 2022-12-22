@@ -1,13 +1,13 @@
 import 'package:app_flutter/common/colors.dart';
 import 'package:app_flutter/common/common_ui.dart';
 import 'package:app_flutter/main/comp/habit_list/habit_list_controller.dart';
-import 'package:app_flutter/main/comp/habit_list/model/habit_list_data.dart';
+import 'package:app_flutter/main/comp/habit_list/model/habit_list_model.dart';
 import 'package:app_flutter/model_routes.dart';
 import 'package:flutter/material.dart';
 
 class HabitCard extends StatelessWidget {
   final HabitListController controller;
-  final HabitListData data;
+  final Records data;
 
   const HabitCard({Key? key, required this.controller, required this.data}) : super(key: key);
 
@@ -23,11 +23,11 @@ class HabitCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FlatText(data.title, fontSize: 18, color: Colors.black),
+          FlatText(data.habitName, fontSize: 18, color: Colors.black),
           SizedBox(height: 5.dp),
           Opacity(
             opacity: 0.5,
-            child: FlatText(data.content, color: Colors.black),
+            child: FlatText(data.plan, color: Colors.black),
           ),
           SizedBox(height: 10.dp),
           Row(
@@ -49,7 +49,10 @@ class HabitCard extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      const FlatText("打卡", color: Colors.white),
+                      FlatText(
+                        (data.clockQuantity ?? 0) <= 1 ? "打卡" : "打卡*${data.clockQuantity}",
+                        color: Colors.white,
+                      ),
                       SizedBox(width: 8.dp),
                       Image(
                         width: 14.dp,

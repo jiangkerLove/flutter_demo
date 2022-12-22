@@ -1,0 +1,32 @@
+{
+  "countId": "",
+  "current": 0,
+  "maxLimit": 0,
+  "optimizeCountSql": true,
+  "orders": [
+    {
+      "asc": true,
+      "column": ""
+    }
+  ],
+  "pages": 0,
+  "records": [
+    {
+      "clockQuantity": 0,
+      "color": "",
+      "habitName": "每天阅读一本书",
+      "id": 0,
+      "plan": "每天 9:00 阅读一本书"
+    },
+    {
+      "clockQuantity": 2,
+      "color": "",
+      "habitName": "每天睡前活动拉伸",
+      "id": 1,
+      "plan": "每天晚上 9:00 做运动一个小时，争取减肥20斤"
+    }
+  ],
+  "searchCount": true,
+  "size": 0,
+  "total": 0
+}

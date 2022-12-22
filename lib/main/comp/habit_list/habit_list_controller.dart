@@ -1,13 +1,25 @@
-import 'package:app_flutter/main/comp/habit_list/model/habit_list_data.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:app_flutter/common/base_controller.dart';
+import 'package:app_flutter/main/comp/habit_list/api.dart';
+import 'package:app_flutter/main/comp/habit_list/model/habit_list_model.dart';
 
-class HabitListController extends GetxController {
-  List<HabitListData> habitList = [
-    HabitListData("每天阅读一本书", "每天 9:00 阅读一本书"),
-    HabitListData("每天阅读一本书", "每天 9:00 阅读一本书"),
-    HabitListData("每天阅读一本书", "每天 9:00 阅读一本书"),
-    HabitListData("每天阅读一本书", "每天 9:00 阅读一本书"),
-    HabitListData("每天阅读一本书", "每天 9:00 阅读一本书"),
-    HabitListData("每天阅读一本书", "每天 9:00 阅读一本书")
-  ];
+class HabitListController extends BaseController<HabitListModel> {
+  List<Records> habitList = [];
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchData();
+  }
+
+  @override
+  Future<HabitListModel?> apiFetch() {
+    return HabitListAPi.fetchTodayHabitApi();
+  }
+
+  @override
+  void onDataFetched(HabitListModel data) {
+    super.onDataFetched(data);
+    var list = data.records ?? [];
+    habitList.addAll(list);
+  }
 }

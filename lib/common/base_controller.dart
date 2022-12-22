@@ -1,6 +1,39 @@
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'dart:async';
+
 import 'package:get/state_manager.dart';
 
-class BaseController extends GetxController {
-  RxBool bool = false.obs;
+enum PageState {
+  loading,
+  loaded,
+  error,
+}
+
+class BaseController<T> extends GetxController {
+  PageState state = PageState.loading;
+
+  void fetchData({bool changeState = true}) async {
+    if (changeState) {
+      state = PageState.loading;
+      update();
+    }
+    var data = await apiFetch();
+    if (data != null) {
+      onDataFetched(data);
+      if (changeState) {
+        state = PageState.loaded;
+        update();
+      }
+    } else {
+      if (changeState) {
+        state = PageState.error;
+        update();
+      }
+    }
+  }
+
+  Future<T?> apiFetch() {
+    return Future.value(null);
+  }
+
+  void onDataFetched(T data) {}
 }

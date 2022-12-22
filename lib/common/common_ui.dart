@@ -11,7 +11,7 @@ extension DoubleExtension on double {
 }
 
 class FlatText extends StatelessWidget {
-  final String data;
+  final String? data;
 
   final double? fontSize;
 
@@ -55,7 +55,7 @@ class FlatText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      data,
+      data ?? "",
       style: TextStyle(
         fontSize: fontSize,
         color: color,
