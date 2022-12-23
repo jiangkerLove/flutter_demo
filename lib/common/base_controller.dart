@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_flutter/common/response_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/state_manager.dart';
 
 enum PageState {
@@ -45,4 +46,14 @@ class BaseController<T> extends GetxController {
   }
 
   void onDataFetched(T data, dynamic extra) {}
+
+  void checkAndNotice(RespModel? result) {
+    if (result?.message?.isNotEmpty == true) {
+      Fluttertoast.showToast(
+        msg: result!.message!,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
+    }
+  }
 }

@@ -34,19 +34,9 @@ class HabitDetailPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           color: Colors.white,
                         ),
-                        child: const Text(
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤,"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤"
-                          "每天晚上 9:00 做运动一个小时，争取减肥20斤",
-                          style: TextStyle(
+                        child: Text(
+                          controller.model?.habitDesc ?? "",
+                          style: const TextStyle(
                             color: Color(0xB3000000),
                           ),
                         ),
@@ -71,12 +61,15 @@ class HabitDetailPage extends StatelessWidget {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12.dp),
-                              child: Image.network("", fit: BoxFit.cover),
+                              child: Image.network(
+                                controller.model!.imgUrlList[index],
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           );
                         },
                         shrinkWrap: true,
-                        itemCount: 10,
+                        itemCount: controller.model?.imgUrlList.length ?? 0,
                       ),
                       SizedBox(height: 15.dp),
                     ],

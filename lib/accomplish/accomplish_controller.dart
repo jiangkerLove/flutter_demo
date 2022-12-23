@@ -1,10 +1,10 @@
 import 'package:app_flutter/accomplish/api.dart';
+import 'package:app_flutter/common/base_controller.dart';
 import 'package:app_flutter/main/comp/habit_list/model/habit_list_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AccomplishController extends GetxController {
+class AccomplishController extends BaseController {
   AccomplishController(this.record);
 
   final TextEditingController inputController = TextEditingController();
@@ -26,11 +26,16 @@ class AccomplishController extends GetxController {
     update();
   }
 
-  void submit() {
-    AccomplishApi.submit(
+  void submit(NavigatorState state) async {
+    var result = await AccomplishApi.submit(
       inputController.text,
       record.id!,
       imageFileList.map((e) => e.path).toList(),
     );
+    if (result != null && result.valid() && result.data != null) {
+      state.pop(true);
+    } else {
+      checkAndNotice(result);
+    }
   }
 }

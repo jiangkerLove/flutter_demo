@@ -33,10 +33,11 @@ class AccomplishPage extends StatelessWidget {
                   child: ListView(
                     padding: EdgeInsets.fromLTRB(15.dp, 13.dp, 15.dp, 0),
                     children: [
-                      const InputText(
+                      InputText(
                         maxLines: 8,
                         maxLength: 500,
                         hintText: "请输入打卡心得（500字内）",
+                        inputController: controller.inputController,
                       ),
                       SizedBox(height: 15.dp),
                       GridView.builder(
@@ -113,7 +114,7 @@ class AccomplishPage extends StatelessWidget {
                       Center(
                         child: GestureDetector(
                           onTap: () {
-                            controller.submit();
+                            controller.submit(Navigator.of(context));
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(vertical: 15.dp, horizontal: 47.dp),
