@@ -4,6 +4,7 @@ import 'package:app_flutter/accomplish/accomplish_controller.dart';
 import 'package:app_flutter/common/colors.dart';
 import 'package:app_flutter/common/common_ui.dart';
 import 'package:app_flutter/common/title.dart';
+import 'package:app_flutter/main/comp/habit_list/model/habit_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
@@ -22,7 +23,7 @@ class AccomplishPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: bgColor,
         body: GetBuilder<AccomplishController>(
-          init: AccomplishController(),
+          init: AccomplishController(params as Records),
           builder: (controller) => Column(
             children: [
               const TitleWidget(title: "习惯打卡"),
@@ -110,13 +111,18 @@ class AccomplishPage extends StatelessWidget {
                       ),
                       SizedBox(height: 15.dp),
                       Center(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 15.dp, horizontal: 47.dp),
-                          decoration: BoxDecoration(
-                            color: btnColor,
-                            borderRadius: BorderRadius.circular(29.dp),
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.submit();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 15.dp, horizontal: 47.dp),
+                            decoration: BoxDecoration(
+                              color: btnColor,
+                              borderRadius: BorderRadius.circular(29.dp),
+                            ),
+                            child: FlatText.blod("确定", fontSize: 18, color: Colors.white),
                           ),
-                          child: FlatText.blod("确定", fontSize: 18, color: Colors.white),
                         ),
                       ),
                       SizedBox(height: 15.dp),

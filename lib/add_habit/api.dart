@@ -7,7 +7,7 @@ class AddHabitAPi {
   static Future<RespModel<String?>?> addHabit(String habitName, String plan) async {
     return NetWork.post<String>(
       addHabitApi,
-      extraParams: {
+      extraBody: {
         "habitName": habitName,
         "plan": plan,
       },

@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:app_flutter/common/common_ui.dart';
 import 'package:app_flutter/main/main_page.dart';
-import 'package:app_flutter/route_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,15 +11,6 @@ typedef RouteWidgetBuilder = Widget Function(BuildContext context, Object? param
 
 void main() {
   baseScale = window.physicalSize.width / window.devicePixelRatio / 375;
-  var routeMap = modelRoutes;
-  // 路由转换，获取统一获取传值
-  var newMap = routeMap.map((key, value) {
-    return MapEntry(key, (context) {
-      Object? params = ModalRoute.of(context)?.settings.arguments;
-      return value(context, params);
-    });
-  });
-
   // 状态栏
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -29,16 +19,46 @@ void main() {
 
   runApp(
     // 替换默认Route
-    MyMaterialApp(
+    MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      //注册路由表
-      routes: newMap,
       home: MainPage(),
+      onGenerateRoute: (RouteSettings settings) {
+        var generate = modelRoutes[settings.name]!;
+        return SlideRightRoute(widgetBuilder: generate, settings: settings);
+      },
     ),
   );
 }
 
+class SlideRightRoute<T> extends PageRouteBuilder<T> {
+  final RouteWidgetBuilder widgetBuilder;
 
+  SlideRightRoute({
+    required this.widgetBuilder,
+    required RouteSettings settings,
+  }) : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return widgetBuilder(context, ModalRoute.of(context)?.settings.arguments);
+          },
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            return SlideTransition(
+              position:
+                  Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+              child: child,
+            );
+          },
+          settings: settings,
+        );
+}

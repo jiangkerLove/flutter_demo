@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:app_flutter/common/response_model.dart';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
@@ -15,6 +17,7 @@ class NetWork {
     String url, {
     ResponseFormat<T>? format,
     Map<String, dynamic>? extraParams,
+    dynamic extraBody,
     String? testAssert,
   }) async {
     if (testAssert != null) {
@@ -22,13 +25,11 @@ class NetWork {
       Map<String, dynamic> data = jsonDecode(load);
       return RespModel(data: format?.call(data), code: 200);
     } else {
-      Map<String, dynamic> params = Map.from(extraParams ?? {});
-
-      // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
-      //   client.findProxy = (uri) {
-      //     return "PROXY 192.168.0.118:8888";
-      //   };
-      // };
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+        client.findProxy = (uri) {
+          return "PROXY 192.168.0.118:8888";
+        };
+      };
 
       dio.options = BaseOptions(
         headers: {
@@ -37,7 +38,11 @@ class NetWork {
         },
       );
 
-      Response response = await dio.post("$baseUrl$url", data: params);
+      Response response = await dio.post(
+        "$baseUrl$url",
+        data: extraBody,
+        queryParameters: extraParams,
+      );
       if (response.statusCode == 200) {
         Map<String, dynamic>? data = response.data;
         return RespModel.fromJson(data, format: format);

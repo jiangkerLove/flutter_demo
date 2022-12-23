@@ -8,7 +8,7 @@ class HabitListAPi {
   static Future<RespModel<HabitListModel?>?> fetchTodayHabitApi(int currentPage) async {
     return NetWork.post<HabitListModel>(
       todayHabitApi,
-      extraParams: {
+      extraBody: {
         "currentPage": currentPage,
         "pageSize": 20,
       },
