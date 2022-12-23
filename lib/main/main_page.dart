@@ -53,8 +53,8 @@ class MainPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: NaviBar(
-                    selectIcon: "images/ic_tab_challenge_select.png",
-                    unSelectIcon: "images/ic_tab_challenge_unselect.png",
+                    selectIcon: "images/ic_tab_msg_select.png",
+                    unSelectIcon: "images/ic_tab_msg_unselect.png",
                     select: controller.currentIndex == 2,
                     onTap: () => controller.onTabClick(2),
                     tabText: "挑战",
@@ -71,8 +71,8 @@ class MainPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: NaviBar(
-                    selectIcon: "images/ic_tab_today_select.png",
-                    unSelectIcon: "images/ic_tab_today_unselect.png",
+                    selectIcon: "images/ic_tab_mine_select.png",
+                    unSelectIcon: "images/ic_tab_mine_unselect.png",
                     select: controller.currentIndex == 4,
                     onTap: () => controller.onTabClick(4),
                     tabText: '我的',

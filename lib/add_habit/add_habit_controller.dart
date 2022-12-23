@@ -26,8 +26,14 @@ class AddHabitController extends BaseController {
       return;
     }
     var result = await AddHabitAPi.addHabit(nameInputController.text, contentInputController.text);
-    if (!isClosed && result != null) {
+    if (!isClosed && result != null && result.valid() && result.data != null) {
       state.pop(true);
+    } else if (result?.message?.isNotEmpty == true) {
+      Fluttertoast.showToast(
+        msg: result!.message!,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
     }
   }
 }

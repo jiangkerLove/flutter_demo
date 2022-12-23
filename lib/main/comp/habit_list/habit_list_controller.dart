@@ -1,5 +1,6 @@
 import 'package:app_flutter/common/base_controller.dart';
 import 'package:app_flutter/common/refresh_mixin.dart';
+import 'package:app_flutter/common/response_model.dart';
 import 'package:app_flutter/main/comp/habit_list/api.dart';
 import 'package:app_flutter/main/comp/habit_list/model/habit_list_model.dart';
 
@@ -18,7 +19,7 @@ class HabitListController extends BaseController<HabitListModel> with RefreshMix
   }
 
   @override
-  Future<HabitListModel?> apiFetch(extra) {
+  Future<RespModel<HabitListModel?>?> apiFetch(extra) {
     return HabitListAPi.fetchTodayHabitApi(currentPage);
   }
 
@@ -32,6 +33,7 @@ class HabitListController extends BaseController<HabitListModel> with RefreshMix
     }
     habitList.addAll(list);
     currentPage++;
-    hasMore = list.length < (data.total ?? 0);
+    // hasMore = list.length < (data.total ?? 0);
+    hasMore = true;
   }
 }

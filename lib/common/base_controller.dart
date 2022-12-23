@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_flutter/common/response_model.dart';
 import 'package:get/state_manager.dart';
 
 enum PageState {
@@ -21,12 +22,12 @@ class BaseController<T> extends GetxController {
       state = PageState.loading;
       update();
     }
-    var data = await apiFetch(extra);
+    var resp = await apiFetch(extra);
 
     isFetching = false;
 
-    if (data != null) {
-      onDataFetched(data, extra);
+    if (resp != null && resp.success && resp.code == 200 && resp.data != null) {
+      onDataFetched(resp.data as T, extra);
       if (changeState) {
         state = PageState.loaded;
         update();
@@ -39,7 +40,7 @@ class BaseController<T> extends GetxController {
     }
   }
 
-  Future<T?> apiFetch(dynamic extra) {
+  Future<RespModel<T?>?> apiFetch(dynamic extra) {
     return Future.value(null);
   }
 

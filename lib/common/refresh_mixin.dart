@@ -8,7 +8,7 @@ enum RefreshType {
 }
 
 mixin RefreshMixin<T> on BaseController<T> {
-  bool hasMore = false;
+  bool hasMore = true;
 
   final RefreshController refreshController = RefreshController();
 

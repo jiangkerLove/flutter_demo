@@ -1,35 +1,46 @@
 import 'dart:convert';
 
+import 'package:app_flutter/common/response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
-typedef ResponseFormat<T> = T? Function(Map<String, dynamic>? data);
+typedef ResponseFormat<T> = T Function(Map<String, dynamic>? data);
 
 class NetWork {
   ///创建 dio
   static Dio dio = Dio();
-  static String baseUrl = "";
+  static String baseUrl = "http://43.139.76.52:8081";
 
-  static Future<T?> post<T>(
-    String url,
-    ResponseFormat<T> format, {
+  static Future<RespModel<T?>?> post<T>(
+    String url, {
+    ResponseFormat<T>? format,
     Map<String, dynamic>? extraParams,
     String? testAssert,
   }) async {
     if (testAssert != null) {
       String? load = await rootBundle.loadString(testAssert);
       Map<String, dynamic> data = jsonDecode(load);
-
-      return format(data);
+      return RespModel(data: format?.call(data), code: 200);
     } else {
       Map<String, dynamic> params = Map.from(extraParams ?? {});
 
-      dio.options = BaseOptions(headers: {"token": ""});
+      // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+      //   client.findProxy = (uri) {
+      //     return "PROXY 192.168.0.118:8888";
+      //   };
+      // };
 
-      Response response = await dio.post("$baseUrl$url", queryParameters: params);
+      dio.options = BaseOptions(
+        headers: {
+          "token":
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDMyMjY3ODIsInVzZXJJZCI6IjE2MDU4MTM2NDQyMTg0MDA3NjkifQ.yURswxsO6G3FU5hBCJz1-QdUbT5FxT-oJ9ev8M6nzLw"
+        },
+      );
+
+      Response response = await dio.post("$baseUrl$url", data: params);
       if (response.statusCode == 200) {
         Map<String, dynamic>? data = response.data;
-        return format(data);
+        return RespModel.fromJson(data, format: format);
       } else {
         return Future.value(null);
       }
