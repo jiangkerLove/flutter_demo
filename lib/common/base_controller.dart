@@ -10,15 +10,23 @@ enum PageState {
 
 class BaseController<T> extends GetxController {
   PageState state = PageState.loading;
+  bool isFetching = false;
 
-  void fetchData({bool changeState = true}) async {
+  void fetchData({bool changeState = true, dynamic extra}) async {
+    if (isFetching) {
+      return;
+    }
+    isFetching = true;
     if (changeState) {
       state = PageState.loading;
       update();
     }
-    var data = await apiFetch();
+    var data = await apiFetch(extra);
+
+    isFetching = false;
+
     if (data != null) {
-      onDataFetched(data);
+      onDataFetched(data, extra);
       if (changeState) {
         state = PageState.loaded;
         update();
@@ -31,9 +39,9 @@ class BaseController<T> extends GetxController {
     }
   }
 
-  Future<T?> apiFetch() {
+  Future<T?> apiFetch(dynamic extra) {
     return Future.value(null);
   }
 
-  void onDataFetched(T data) {}
+  void onDataFetched(T data, dynamic extra) {}
 }

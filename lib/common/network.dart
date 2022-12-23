@@ -27,10 +27,12 @@ class NetWork {
       dio.options = BaseOptions(headers: {"token": ""});
 
       Response response = await dio.post("$baseUrl$url", queryParameters: params);
-
-      Map<String, dynamic>? data = response.data;
-
-      return format(data);
+      if (response.statusCode == 200) {
+        Map<String, dynamic>? data = response.data;
+        return format(data);
+      } else {
+        return Future.value(null);
+      }
     }
   }
 }

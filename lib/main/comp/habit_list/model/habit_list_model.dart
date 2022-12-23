@@ -12,15 +12,15 @@
 class HabitListModel {
   HabitListModel({
     String? countId,
-    num? current,
-    num? maxLimit,
+    int? current,
+    int? maxLimit,
     bool? optimizeCountSql,
     List<Orders>? orders,
-    num? pages,
+    int? pages,
     List<Records>? records,
     bool? searchCount,
-    num? size,
-    num? total,
+    int? size,
+    int? total,
   }) {
     _countId = countId;
     _current = current;
@@ -58,27 +58,27 @@ class HabitListModel {
   }
 
   String? _countId;
-  num? _current;
-  num? _maxLimit;
+  int? _current;
+  int? _maxLimit;
   bool? _optimizeCountSql;
   List<Orders>? _orders;
-  num? _pages;
+  int? _pages;
   List<Records>? _records;
   bool? _searchCount;
-  num? _size;
-  num? _total;
+  int? _size;
+  int? _total;
 
   HabitListModel copyWith({
     String? countId,
-    num? current,
-    num? maxLimit,
+    int? current,
+    int? maxLimit,
     bool? optimizeCountSql,
     List<Orders>? orders,
-    num? pages,
+    int? pages,
     List<Records>? records,
     bool? searchCount,
-    num? size,
-    num? total,
+    int? size,
+    int? total,
   }) =>
       HabitListModel(
         countId: countId ?? _countId,
@@ -109,9 +109,9 @@ class HabitListModel {
 
   bool? get searchCount => _searchCount;
 
-  num? get size => _size;
+  int? get size => _size;
 
-  num? get total => _total;
+  int? get total => _total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -141,10 +141,10 @@ class HabitListModel {
 
 class Records {
   Records({
-    num? clockQuantity,
+    int? clockQuantity,
     String? color,
     String? habitName,
-    num? id,
+    int? id,
     String? plan,
   }) {
     _clockQuantity = clockQuantity;
@@ -162,17 +162,17 @@ class Records {
     _plan = json['plan'];
   }
 
-  num? _clockQuantity;
+  int? _clockQuantity;
   String? _color;
   String? _habitName;
-  num? _id;
+  int? _id;
   String? _plan;
 
   Records copyWith({
-    num? clockQuantity,
+    int? clockQuantity,
     String? color,
     String? habitName,
-    num? id,
+    int? id,
     String? plan,
   }) =>
       Records(
@@ -183,13 +183,13 @@ class Records {
         plan: plan ?? _plan,
       );
 
-  num? get clockQuantity => _clockQuantity;
+  int? get clockQuantity => _clockQuantity;
 
   String? get color => _color;
 
   String? get habitName => _habitName;
 
-  num? get id => _id;
+  int? get id => _id;
 
   String? get plan => _plan;
 

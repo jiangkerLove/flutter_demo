@@ -108,14 +108,22 @@ class InputText extends StatelessWidget {
   final String? hintText;
   final int? maxLines;
   final int? maxLength;
+  final TextEditingController? inputController;
 
-  const InputText({Key? key, this.hintText, this.maxLines, this.maxLength}) : super(key: key);
+  const InputText({
+    Key? key,
+    this.hintText,
+    this.maxLines,
+    this.maxLength,
+    this.inputController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       maxLines: maxLines,
       maxLength: maxLength,
+      controller: inputController,
       decoration: InputDecoration(
         // 字数提示
         counterText: "",

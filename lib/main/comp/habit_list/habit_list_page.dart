@@ -6,6 +6,7 @@ import 'package:app_flutter/main/comp/habit_list/ui/habit_card.dart';
 import 'package:app_flutter/model_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HabitListPage extends StatelessWidget {
   const HabitListPage({Key? key}) : super(key: key);
@@ -67,7 +68,12 @@ class HabitListPage extends StatelessWidget {
                         right: 35.dp,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushNamed(addHabitRoute);
+                            var result = Navigator.of(context).pushNamed(addHabitRoute);
+                            result.then(
+                              (value) => {
+                                if (value != null) controller.fetchData(),
+                              },
+                            );
                           },
                           child: Container(
                             width: 54.dp,
@@ -124,19 +130,25 @@ class HabitListPage extends StatelessWidget {
     }
     return ScrollConfiguration(
       behavior: OverScrollBehavior(),
-      child: ListView.builder(
-        padding: const EdgeInsets.only(top: 0),
-        itemBuilder: (_, index) => Container(
-          key: UniqueKey(),
-          padding: EdgeInsets.fromLTRB(
-            15.dp,
-            index == 0 ? 19.dp : 15.dp,
-            15.dp,
-            0,
+      child: SmartRefresher(
+        controller: controller.refreshController,
+        enablePullDown: false,
+        enablePullUp: controller.hasMore,
+        onLoading: controller.loadMore,
+        child: ListView.builder(
+          padding: const EdgeInsets.only(top: 0),
+          itemBuilder: (_, index) => Container(
+            key: UniqueKey(),
+            padding: EdgeInsets.fromLTRB(
+              15.dp,
+              index == 0 ? 19.dp : 15.dp,
+              15.dp,
+              0,
+            ),
+            child: HabitCard(controller: controller, data: controller.habitList[index]),
           ),
-          child: HabitCard(controller: controller, data: controller.habitList[index]),
+          itemCount: controller.habitList.length,
         ),
-        itemCount: controller.habitList.length,
       ),
     );
   }
