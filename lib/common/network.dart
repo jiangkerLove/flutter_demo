@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:app_flutter/common/response_model.dart';
-import 'package:dio/adapter.dart';
+import 'package:app_flutter/http_proxy_local.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
@@ -25,11 +24,7 @@ class NetWork {
       Map<String, dynamic> data = jsonDecode(load);
       return RespModel(data: format?.call(data), code: 200);
     } else {
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
-        client.findProxy = (uri) {
-          return "PROXY 192.168.0.118:8888";
-        };
-      };
+      proxyHttp(dio);
 
       dio.options = BaseOptions(
         headers: {
