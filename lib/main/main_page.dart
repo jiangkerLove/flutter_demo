@@ -30,7 +30,6 @@ class MainPage extends StatelessWidget {
             children: _pages,
           ),
           bottomNavigationBar: Container(
-            height: 58.dp,
             color: Colors.white,
             child: Row(
               children: [

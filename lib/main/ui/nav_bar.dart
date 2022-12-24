@@ -29,6 +29,7 @@ class NaviBar extends StatelessWidget {
         child: AnimatedSwitcher(
           duration: const Duration(microseconds: 100),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Image(
                 height: 24.dp,
