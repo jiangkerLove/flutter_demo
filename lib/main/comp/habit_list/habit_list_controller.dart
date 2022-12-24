@@ -33,7 +33,6 @@ class HabitListController extends BaseController<HabitListModel> with RefreshMix
     }
     habitList.addAll(list);
     currentPage++;
-    // hasMore = list.length < (data.total ?? 0);
-    hasMore = true;
+    hasMore = list.length < (data.total ?? 0);
   }
 }

@@ -2,13 +2,14 @@ import 'package:app_flutter/common/common_ui.dart';
 import 'package:app_flutter/main/comp/habit_list/habit_list_page.dart';
 import 'package:app_flutter/main/main_controller.dart';
 import 'package:app_flutter/main/ui/nav_bar.dart';
+import 'package:app_flutter/model_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class MainPage extends StatelessWidget {
   final List<Widget> _pages = [
     const KeepAliveWidget(child: HabitListPage()),
-    FlatText("统计"),
+    const Statistics(),
     FlatText("挑战"),
     FlatText("消息"),
     FlatText("我的"),
@@ -82,6 +83,22 @@ class MainPage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Statistics extends StatelessWidget {
+  const Statistics({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed(habitDetailRoute, arguments: "data");
+        },
+        child: const FlatText("习惯详情"),
       ),
     );
   }

@@ -14,9 +14,7 @@ class HabitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(habitDetailRoute, arguments: data);
-      },
+      onTap: () {},
       behavior: HitTestBehavior.opaque,
       child: Container(
         width: double.infinity,

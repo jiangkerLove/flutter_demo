@@ -1,5 +1,6 @@
 import 'package:app_flutter/common/colors.dart';
 import 'package:app_flutter/common/common_ui.dart';
+import 'package:app_flutter/common/network.dart';
 import 'package:app_flutter/common/title.dart';
 import 'package:app_flutter/habit_detail/habit_detail_controller.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class HabitDetailPage extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12.dp),
                               child: Image.network(
-                                controller.model!.imgUrlList[index],
+                                "${NetWork.baseUrl}/image/${controller.model!.imgUrlList[index]}",
                                 fit: BoxFit.cover,
                               ),
                             ),

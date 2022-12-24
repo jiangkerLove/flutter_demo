@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 class AccomplishApi {
   static const String _accomplishUrl = "/accumulation/publish";
 
-  static Future<RespModel<dynamic>?> submit(
+  static Future<RespModel<int?>?> submit(
     String habitDesc,
     int habitId,
     List<String> files,
@@ -16,7 +16,7 @@ class AccomplishApi {
       list.add(file);
     }
 
-    return NetWork.post<dynamic>(
+    return NetWork.post<int?>(
       _accomplishUrl,
       extraParams: {
         "habitDesc": habitDesc,

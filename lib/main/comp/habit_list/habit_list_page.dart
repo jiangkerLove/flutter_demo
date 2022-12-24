@@ -25,7 +25,7 @@ class HabitListPage extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                const TitleWidget(title: "习惯列表页"),
+                const TitleWidget(title: "习惯列表页", showBack: false),
                 SizedBox(
                   height: 152.dp,
                   width: double.infinity,
@@ -141,9 +141,9 @@ class HabitListPage extends StatelessWidget {
             key: UniqueKey(),
             padding: EdgeInsets.fromLTRB(
               15.dp,
-              index == 0 ? 19.dp : 15.dp,
+              index == 0 ? 19.dp : 0,
               15.dp,
-              0,
+              15.dp,
             ),
             child: HabitCard(controller: controller, data: controller.habitList[index]),
           ),

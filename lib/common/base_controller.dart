@@ -14,7 +14,7 @@ class BaseController<T> extends GetxController {
   PageState state = PageState.loading;
   bool isFetching = false;
 
-  void fetchData({bool changeState = true, dynamic extra}) async {
+  Future<void> fetchData({bool changeState = true, dynamic extra}) async {
     if (isFetching) {
       return;
     }

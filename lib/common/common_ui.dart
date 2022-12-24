@@ -109,6 +109,7 @@ class InputText extends StatelessWidget {
   final int? maxLines;
   final int? maxLength;
   final TextEditingController? inputController;
+  final bool showNotice;
 
   const InputText({
     Key? key,
@@ -116,6 +117,7 @@ class InputText extends StatelessWidget {
     this.maxLines,
     this.maxLength,
     this.inputController,
+    this.showNotice = true,
   }) : super(key: key);
 
   @override
@@ -126,7 +128,7 @@ class InputText extends StatelessWidget {
       controller: inputController,
       decoration: InputDecoration(
         // 字数提示
-        counterText: "",
+        counterText: showNotice ? null : "",
         hintText: hintText,
         border: OutlineInputBorder(
           borderSide: BorderSide.none,

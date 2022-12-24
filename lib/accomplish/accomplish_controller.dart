@@ -16,9 +16,11 @@ class AccomplishController extends BaseController {
   final ImagePicker _picker = ImagePicker();
 
   Future pickImages() async {
-    List<XFile> res = await _picker.pickMultiImage();
-    imageFileList.addAll(res);
-    update();
+    XFile? res = await _picker.pickImage(source: ImageSource.gallery);
+    if (res != null) {
+      imageFileList.add(res);
+      update();
+    }
   }
 
   void deleteImage(XFile file) {

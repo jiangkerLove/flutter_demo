@@ -15,7 +15,6 @@ class HabitListAPi {
       format: (data) {
         return HabitListModel.fromJson(data);
       },
-      // testAssert: "assets/habit_list.json",
     );
   }
 }

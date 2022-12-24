@@ -32,6 +32,7 @@ class AddHabitPage extends StatelessWidget {
                       InputText(
                         maxLines: 1,
                         maxLength: 20,
+                        showNotice: false,
                         hintText: "例如跑步、早起等（限20字内）",
                         inputController: controller.nameInputController,
                       ),
@@ -40,7 +41,7 @@ class AddHabitPage extends StatelessWidget {
                       SizedBox(height: 15.dp),
                       InputText(
                         maxLines: 8,
-                        maxLength: 500,
+                        maxLength: 255,
                         hintText: "何时何地具体做什么，如早饭后看书、晚上9点瑜伽",
                         inputController: controller.contentInputController,
                       ),

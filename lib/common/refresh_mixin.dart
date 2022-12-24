@@ -12,7 +12,8 @@ mixin RefreshMixin<T> on BaseController<T> {
 
   final RefreshController refreshController = RefreshController();
 
-  void loadMore() {
-    fetchData(changeState: false, extra: RefreshType.loadMore);
+  void loadMore() async {
+    await fetchData(changeState: false, extra: RefreshType.loadMore);
+    refreshController.loadComplete();
   }
 }
